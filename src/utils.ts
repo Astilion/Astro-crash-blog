@@ -5,7 +5,7 @@ function formatDate(date: Date): string {
     day: "numeric",
   };
 
-  return new Date(date).toLocaleDateString(undefined, options);
+  return new Date(date).toLocaleDateString('en-US', options); // undefined zamiast en-us i daje jezyk ojczysty
 }
 
 export { formatDate };
