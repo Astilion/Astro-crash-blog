@@ -4,6 +4,16 @@ import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 
 const allBlogArticles: CollectionEntry<"blog">[] = await getCollection("blog");
+
+function formatDate(date: Date): string {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  return new Date(date).toLocaleDateString(undefined, options);
+}
 ---
 
 <MainLayout>
@@ -25,7 +35,9 @@ const allBlogArticles: CollectionEntry<"blog">[] = await getCollection("blog");
               <h2 class="mb-2 text-2xl font-semibold">
                 <a href={"/articles/" + article.slug}>{article.data.title}</a>
               </h2>
-              <p class="mb-4 text-sm text-gray-600">{article.data.pubDate}</p>
+              <p class="mb-4 text-sm text-gray-600">
+                {formatDate(article.data.pubDate)}
+              </p>
               <div class="flex flex-wrap gap-2">
                 {article.data.tags.map((tag: string, index: number) => (
                   <span
